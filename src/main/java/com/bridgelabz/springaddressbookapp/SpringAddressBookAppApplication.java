@@ -8,7 +8,7 @@ public class SpringAddressBookAppApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringAddressBookAppApplication.class, args);
-        System.out.println("Welcome T Address Book App!!!");
+        System.out.println("Welcome To Address Book App!!!");
     }
 
 }
