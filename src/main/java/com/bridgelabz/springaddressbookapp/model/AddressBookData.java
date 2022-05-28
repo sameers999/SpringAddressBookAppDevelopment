@@ -42,5 +42,4 @@ public @Data class AddressBookData {
         this.state = addressBookDTO.getState();
         this.zipcode = addressBookDTO.getZipcode();
     }
-
    }
