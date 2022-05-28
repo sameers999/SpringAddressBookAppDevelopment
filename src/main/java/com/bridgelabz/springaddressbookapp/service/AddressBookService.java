@@ -34,8 +34,8 @@ public class AddressBookService implements IAddressBookService {
     @Override
     public AddressBookData updateAddressBookData(int id,AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData=this.getAddressBookDataById(id);
-        addressBookData.setfName(addressBookDTO.getfName());
-        addressBookData.setlName(addressBookDTO.getlName());
+        addressBookData.setFName(addressBookDTO.getFName());
+        addressBookData.setLName(addressBookDTO.getLName());
         addressBookData.setPhonenumber(addressBookDTO.getPhonenumber());
         addressBookData.setEmail(addressBookDTO.getEmail());
         addressBookData.setCity(addressBookDTO.getCity());
@@ -50,3 +50,4 @@ public class AddressBookService implements IAddressBookService {
         addressBookDataList.remove(id);
     }
 }
+
