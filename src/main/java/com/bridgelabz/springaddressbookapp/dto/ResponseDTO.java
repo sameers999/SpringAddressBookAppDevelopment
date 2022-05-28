@@ -1,6 +1,6 @@
 package com.bridgelabz.springaddressbookapp.dto;
 
-public class ResponseDTO {
+public class    ResponseDTO {
     private String message;
     private Object data;
     public ResponseDTO(String message, Object data) {

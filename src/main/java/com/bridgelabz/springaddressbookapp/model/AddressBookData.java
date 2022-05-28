@@ -2,10 +2,11 @@ package com.bridgelabz.springaddressbookapp.model;
 
 import com.bridgelabz.springaddressbookapp.dto.AddressBookDTO;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+@Entity
 public class AddressBookData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,9 +26,6 @@ public class AddressBookData {
 
     private long zipcode;
 
-    public AddressBookData() {
-
-    }
 
     public int getid() {
         return id;
@@ -91,6 +89,9 @@ public class AddressBookData {
 
     public void setZipcode(long zipcode) {
         this.zipcode = zipcode;
+    }
+    public AddressBookData() {
+
     }
 
     public AddressBookData(int id, AddressBookDTO addressBookDTO) {
