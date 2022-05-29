@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import java.util.List;
 public class AddressBookController {
     @Autowired
     private IAddressBookService iAddressBookService;
-
     @RequestMapping("/get")
     public ResponseEntity<ResponseDTO> getAddressbookData() {
         List<AddressBookData> addressBookData = iAddressBookService.getAddressBookData();
@@ -29,6 +27,14 @@ public class AddressBookController {
     public ResponseEntity<ResponseDTO> getAddressbookData(@PathVariable int id) {
         AddressBookData addressBookData = iAddressBookService.getAddressBookDataById(id);
         ResponseDTO responseDTO = new ResponseDTO("Get call Success", addressBookData);
+        return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/getcity/{city}")
+    public ResponseEntity<ResponseDTO> getAddressBookbyCity(@PathVariable("city") String city){
+        List<AddressBookData> addressBookList = null;
+        addressBookList = iAddressBookService.getAddressBookByCity(city);
+        ResponseDTO responseDTO = new ResponseDTO("Get call search by city is successful!", addressBookList);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 

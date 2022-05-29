@@ -1,50 +1,58 @@
 package com.bridgelabz.springaddressbookapp.service;
 
 import com.bridgelabz.springaddressbookapp.dto.AddressBookDTO;
+import com.bridgelabz.springaddressbookapp.exception.AddressBookCustomException;
 import com.bridgelabz.springaddressbookapp.model.AddressBookData;
+import com.bridgelabz.springaddressbookapp.repository.AddressBookRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Service
+@Slf4j
 public class AddressBookService implements IAddressBookService {
-    private List<AddressBookData> addressBookDataList = new ArrayList<>();
+    @Autowired
+    private AddressBookRepository addressBookRepository;
 
     @Override
     public List<AddressBookData> getAddressBookData() {
-        return addressBookDataList;
+        return addressBookRepository.findAll();
     }
 
     @Override
     public AddressBookData getAddressBookDataById(int id) {
-        return addressBookDataList.get(id - 1);
+        return addressBookRepository.findById(id)
+                .orElseThrow(() ->
+                        new AddressBookCustomException("AddressBook with this id " + id + " doest not exists!"));
+    }
+
+    @Override
+    public List<AddressBookData> getAddressBookByCity(String city) {
+
+        return addressBookRepository.findAddressBookByCity(city);
     }
 
     @Override
     public AddressBookData createAddressBookData(AddressBookDTO addressBookDTO) {
-        AddressBookData addressBookData = new AddressBookData(addressBookDataList.size() + 1, addressBookDTO);
-        addressBookDataList.add(addressBookData);
-        return addressBookData;
+        AddressBookData addressBookData = null;
+        addressBookData = new AddressBookData(addressBookDTO);
+        log.debug("AddressBook Data:" + addressBookData.toString());
+        return addressBookRepository.save(addressBookData);
     }
 
     @Override
     public AddressBookData updateAddressBookData(int id, AddressBookDTO addressBookDTO) {
         AddressBookData addressBookData = this.getAddressBookDataById(id);
-        addressBookData.setFName(addressBookDTO.getFName());
-        addressBookData.setLName(addressBookDTO.getLName());
-        addressBookData.setPhonenumber(addressBookData.getPhonenumber());
-        addressBookData.setEmail(addressBookData.getEmail());
-        addressBookData.setCity(addressBookData.getCity());
-        addressBookData.setAddress(addressBookDTO.getAddress());
-        addressBookData.setState(addressBookData.getState());
-        addressBookData.setZipcode(addressBookDTO.getZipcode());
-        addressBookDataList.set(id - 1, addressBookData);
-        return addressBookData;
+        addressBookData.updateAddressBookData(addressBookDTO);
+        return addressBookRepository.save(addressBookData);
     }
 
     @Override
     public void deleteAddressBookData(int id) {
-        addressBookDataList.remove(id - 1);
+        AddressBookData addressBookData = this.getAddressBookDataById(id);
+        addressBookRepository.delete(addressBookData);
     }
 }
 
