@@ -14,7 +14,6 @@ public @Data class AddressBookData {
     private int id;
     @Column(name = "name")
     private String fName;
-
     private String lName;
 
     private String phonenumber;
@@ -34,8 +33,6 @@ public @Data class AddressBookData {
     public AddressBookData(AddressBookDTO addressBookDTO) {
         this.updateAddressBookData(addressBookDTO);
     }
-
-
     public void updateAddressBookData( AddressBookDTO addressBookDTO) {
         this.fName = addressBookDTO.getFName();
         this.lName = addressBookDTO.getLName();

@@ -39,5 +39,4 @@ public @Data class AddressBookDTO {
         this.state = state;
         this.zipcode = zipcode;
     }
-
 }
